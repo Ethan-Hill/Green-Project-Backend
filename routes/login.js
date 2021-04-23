@@ -31,22 +31,18 @@ router.post("/", async (req, res) => {
     const code = authCode()
 
     await User.findOneAndUpdate({ email: data.email }, { $set: { code: code } })
-    nodemailerMailgun.sendMail(
-      {
+    const mail = await nodemailerMailgun
+      .sendMail({
         from: "verify@ethanhill.dev",
         to: data.email, // An array if you have multiple recipients.,
         subject: "Verification code",
         template: "verify",
         "h:X-Mailgun-Variables": JSON.stringify({ code }),
-      },
-      (err, info) => {
-        if (err) {
-          console.log(`Error: ${err}`)
-        } else {
-          console.log(`Email sent to ${data.email}`)
-        }
-      }
-    )
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    console.log(mail)
 
     res.send(user)
   }
