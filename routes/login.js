@@ -5,6 +5,7 @@ const { authCode } = require("../utils")
 require("dotenv").config()
 const nodemailer = require("nodemailer")
 const mg = require("nodemailer-mailgun-transport")
+var htmlToText = require("nodemailer-html-to-text").htmlToText
 
 const auth = {
   auth: {
@@ -31,6 +32,7 @@ router.post("/", async (req, res) => {
     const code = authCode()
 
     await User.findOneAndUpdate({ email: data.email }, { $set: { code: code } })
+    nodemailerMailgun.use("compile", htmlToText())
     nodemailerMailgun.sendMail(
       {
         from: "verify@ethanhill.dev",
