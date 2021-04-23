@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const User = require("../models/User")
 const { authCode } = require("../utils")
-
+require("dotenv").config()
 const nodemailer = require("nodemailer")
 const mg = require("nodemailer-mailgun-transport")
 
