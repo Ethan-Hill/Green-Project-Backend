@@ -17,7 +17,6 @@ const nodemailerMailgun = nodemailer.createTransport(mg(auth))
 
 router.post("/", async (req, res) => {
   const data = req.body
-  console.log(data)
 
   const user = await User.findOne({
     email: data.email,
@@ -42,7 +41,6 @@ router.post("/", async (req, res) => {
       .catch((err) => {
         console.log(err)
       })
-    console.log(mail)
 
     res.send(user)
   }
