@@ -30,9 +30,9 @@ router.post("/", async (req, res) => {
     const code = authCode()
 
     await User.findOneAndUpdate({ email: data.email }, { $set: { code: code } })
-    const mail = await nodemailerMailgun
+    await nodemailerMailgun
       .sendMail({
-        from: "verify@ethanhill.dev",
+        from: "verify@green.energy",
         to: data.email, // An array if you have multiple recipients.,
         subject: "Verification code",
         template: "verify",
