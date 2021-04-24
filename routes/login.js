@@ -11,6 +11,7 @@ const auth = {
     api_key: process.env.api_key,
     domain: process.env.domain,
   },
+  host: "api.eu.mailgun.net",
 }
 
 const nodemailerMailgun = nodemailer.createTransport(mg(auth))
