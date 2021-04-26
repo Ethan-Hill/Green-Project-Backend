@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
     await User.findOneAndUpdate({ email: email }, { $set: { code: "" } })
     const token = jwt.sign(
       {
-        expiresIn: 5000,
+        exp: Math.floor(Date.now() / 1000) + 60 * 60,
         data: { email, id: user._id },
       },
       process.env.JWT_SECRET
