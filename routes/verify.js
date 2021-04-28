@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
   })
 
   if (!user) {
-    res.status(409).json({
+    res.status(401).json({
       message: "Email was not found",
     })
   } else if (user.code !== code) {
